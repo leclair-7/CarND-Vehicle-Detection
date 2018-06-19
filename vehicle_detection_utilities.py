@@ -30,10 +30,9 @@ def bin_spatial(img, size=(32, 32)):
     # Return the feature vector
     return features
 
-# Define a function to compute color histogram features 
-# NEED TO CHANGE bins_range if reading .png files with mpimg!
+# CHANGE bins_range if reading .png files with mpimg!
 def color_hist(img, nbins=32, bins_range=(0, 256)):
-    # Compute the histogram of the color channels separately
+    # Histogram of the color channels
     channel1_hist = np.histogram(img[:,:,0], bins=nbins, range=bins_range)
     channel2_hist = np.histogram(img[:,:,1], bins=nbins, range=bins_range)
     channel3_hist = np.histogram(img[:,:,2], bins=nbins, range=bins_range)
@@ -58,23 +57,15 @@ def convert_color(input_img,color_space):
 	return np.copy(input_img)
 
 
-#get_hog_features(img, orient, pix_per_cell, cell_per_block, vis=False, feature_vec=True)
 def get_img_features(img, color_space='RGB', spatial_size=(32, 32),
                         hist_bins=32, orient=9, 
                         pix_per_cell=8, cell_per_block=2, hog_channel=0,
-                        spatial_feat=True, hist_feat=True, hog_feat=True,fromFile=True):    
+                        spatial_feat=True, hist_feat=True, hog_feat=True):    
     
-    #1) Define an empty list to receive features
     img_features = []
-    
-    if fromFile:
-    	feature_image = mpimg.imread(img)
-    else:
-    	feature_image = img
-    #2) Apply color conversion if other than 'RGB'    
-    feature_image = convert_color(feature_image, color_space)      
-    
-    #3) Compute spatial features if flag is set
+      
+    feature_image = convert_color(img, color_space)      
+    feature_image = feature_image / 255
     if spatial_feat == True:
         spatial_features = bin_spatial(feature_image, size=spatial_size)
         #4) Append features to list

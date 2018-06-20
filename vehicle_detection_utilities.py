@@ -65,7 +65,7 @@ def get_img_features(img, color_space='RGB', spatial_size=(32, 32),
     img_features = []
       
     feature_image = convert_color(img, color_space)      
-    feature_image = feature_image / 255
+    #feature_image = feature_image / 255
     if spatial_feat == True:
         spatial_features = bin_spatial(feature_image, size=spatial_size)
         #4) Append features to list

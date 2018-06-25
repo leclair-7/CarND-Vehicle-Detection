@@ -79,13 +79,12 @@ Ultimately I searched on two scales using YCrCb 3-channel HOG features plus spat
 #### 1. Link to the video output.  
 Here's a [link to my video result](./result.mp4)
 
-#### 2. Describe how (and identify where in your code) you implemented some kind of filter for false positives and some method for combining overlapping bounding boxes.
+#### 2. Filter implementation for false positives and some method for combining overlapping bounding boxes.
 
-I recorded the positions of positive detections in each frame of the video.  From the positive detections I created a heatmap, thresholded that map, then I added it to a queue which kept track of the past 5 heatmaps. I then averaged the heatmaps and thresholded that map and returned the resulting heatmap.   `scipy.ndimage.measurements.label()` was then called to identify individual blobs in the heatmap.  I then assumed each blob corresponded to a vehicle.  I constructed bounding boxes to cover the area of each blob detected.  
+I recorded the positions of positive detections in each frame of the video.  From the positive detections I created a heatmap, thresholded that map, then I added it to a queue which kept track of the past 5 heatmaps. I then averaged the heatmaps and thresholded that map and returned the resulting heatmap.   `scipy.ndimage.measurements.label()` was then called to identify individual blobs in the heatmap. This function also combines overlapping bounding boxes as a feature.  I then assumed each blob corresponded to a vehicle.  Lastly I constructed bounding boxes to cover the area of each blob detected.  
 
-Here's an example result showing the heatmap from a series of frames of video, the result of `scipy.ndimage.measurements.label()` and the bounding boxes then overlaid on the last frame of video:
 
-#### Here are 4 frames of images after the bouding boxes were calculated:
+#### Here are 4 frames of images after the bounding boxes were calculated:
 ![alt text][image4]
 #### Here are 4 frames of images after the pipeline was completed:
 ![alt text][image5]
@@ -94,7 +93,7 @@ Here's an example result showing the heatmap from a series of frames of video, t
 
 ### Discussion
 
-#### 1. Briefly discuss any problems / issues you faced in your implementation of this project.  Where will your pipeline likely fail?  What could you do to make it more robust?
+#### 1. Problems / Issues / Improvements:
 
 Issues faced were mainly false positives especially on the shadow areas. It looks like the shadow areas had similar features to the black car. Aggressive thresholding and averaging fixed this. As a result, my model would not work in dark or rainy conditions.
 

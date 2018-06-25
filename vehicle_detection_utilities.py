@@ -15,25 +15,7 @@ params_dict = {
 'hist_feat':True, 
 'hog_feat':True
 }
-'''
 
-orientation was 8 and the color was YCrCb
-
-
-
-
-
-color_space = 'HLS' # Can be RGB, HSV, LUV, HLS, YUV, YCrCb
-spatial_size = (16, 16)
-hist_bins = 32
-orient = 9
-pix_per_cell = 8
-cell_per_block = 2
-hog_channel = 'ALL'
-spatial_feat = True
-hist_feat = True
-hog_feat = True
-'''
 
 #GENERATES WINDOWS
 def slide_window(img, x_start_stop=[None, None], y_start_stop=[None, None], 
